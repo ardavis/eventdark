@@ -1,0 +1,20 @@
+%h1 Locations
+
+= link_to 'New Location', new_location_path, class: 'btn btn-primary'
+
+%table.table
+  %thead
+    %th ID
+    %th Name
+    %th Description
+    %th
+
+  %tbody
+    - @locations.each do |location|
+      %tr
+        %td= location.id
+        %td= link_to location.name, location
+        %td= location.description
+        %td
+          = link_to 'Edit', edit_location_path(location)
+          = link_to 'Delete', location, method: :delete, data: { confirm: 'Are you sure you want to delete this location?' }

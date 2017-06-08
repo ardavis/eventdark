@@ -1,0 +1,22 @@
+%h1 Events
+
+= link_to 'New Event', new_event_path, class: 'btn btn-primary'
+
+%table.table
+  %thead
+    %th ID
+    %th Name
+    %th Description
+    %th Location
+    %th
+
+  %tbody
+    - @events.each do |event|
+      %tr
+        %td= event.id
+        %td= link_to event.name, event
+        %td= event.description
+        %td= link_to event.location.name, event.location
+        %td
+          = link_to 'Edit', edit_event_path(event)
+          = link_to 'Delete', event, method: :delete, data: { confirm: 'Are you sure you want to delete this event?' }

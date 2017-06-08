@@ -1,0 +1,14 @@
+%h1= @event.name
+
+%p= @event.description
+
+%p= "Attendees: #{@event.pledges.sum(&:guest_count)}"
+%ul
+  - @event.pledges.each do |pledge|
+    %li
+      = "#{pledge.user.name} plus #{pledge.guest_count - 1}"
+
+= form_tag attend_event_path(@event) do
+  = text_field_tag :name
+  = number_field_tag :guest_count
+  = submit_tag

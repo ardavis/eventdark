@@ -1,0 +1,15 @@
+!!!
+%html
+  %head
+    %title Eventdark
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    %nav.navbar.navbar-default
+      .container-fluid
+        %ul.nav.navbar-nav
+          %li= link_to 'Home', root_path
+          %li= link_to 'Events', events_path
+          %li= link_to 'Locations', locations_path
+    = yield
