@@ -1,0 +1,16 @@
+%table.table
+  %thead
+    %th Event Name
+    %th Location
+    %th Guest Count
+    %th
+
+  %tbody
+    - @pledges.each do |pledge|
+      - event = pledge.event
+      %tr
+        %td= link_to event.name, event
+        %td= link_to event.location.name, event.location
+        %td= pledge.guest_count
+        %td
+          = link_to 'Cancel', pledge, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to cancel this pledge?' }

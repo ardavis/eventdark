@@ -51,8 +51,21 @@ class EventsController < ApplicationController
   def attend
     # @event.users << current_user
     # Pledge.create(event_id: @event.id, user_id: @user.id, guest_count: params[:guest_count])
-    @event.pledges.create(user: current_user, guest_count: params[:guest_count].to_i + 1)
-    redirect_to @event
+    @pledge = @event.pledges.create(user: current_user, guest_count: params[:guest_count].to_i + 1)
+    respond_to do |format|
+      format.html do
+        redirect_to @event
+      end
+
+      format.js do
+        if @pledge.valid?
+          head :ok
+        else
+          head :internal_server_error
+        end
+      end
+    end
+
   end
 
   def decline
