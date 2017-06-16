@@ -1,6 +1,12 @@
-= simple_form_for @event do |f|
-  = f.input :name
-  = f.input :description
-  = f.association :location
+.container
+  .row
+    .col-xs-8.col-xs-offset-2.well
+      = simple_form_for @event do |f|
+        = f.input :name, required: false
+        = f.input :description
 
-  = f.submit
+        = f.input :started_at, as: :string, input_html: { value: started_at_value(@event), class: 'datetimepicker' }
+        = f.input :ended_at, as: :string, input_html: { value: ended_at_value(@event), class: 'datetimepicker' }
+        = f.association :location
+
+        = f.submit

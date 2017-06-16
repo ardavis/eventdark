@@ -2,6 +2,9 @@
 
 %p= @location.description
 
+.google_map
+  = image_tag(@location.google_map(height: 400, width: 400, zoom: 11))
+
 %table.table
   %thead
     %th ID

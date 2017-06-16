@@ -1,14 +1,25 @@
-%h1= @event.name
+.container
+  .row
+    .col-xs-7
+      %h3= @event.name
+      %p= @event.description
+      %p= "Attendees: #{@event.pledges.sum(&:guest_count)}"
 
-%p= @event.description
+      %ul
+        - @event.pledges.each do |pledge|
+          %li
+            = "#{pledge.user.name} plus #{pledge.guest_count - 1}"
 
-%p= "Attendees: #{@event.pledges.sum(&:guest_count)}"
-%ul
-  - @event.pledges.each do |pledge|
-    %li
-      = "#{pledge.user.name} plus #{pledge.guest_count - 1}"
+    .col-xs-5
+      .map= image_tag(@event.location.google_map(height: 300, width: 300))
 
-= form_tag attend_event_path(@event) do
-  = text_field_tag :name
-  = number_field_tag :guest_count
-  = submit_tag
+      .well
+        - if current_user.attending?(@event)
+          You are already attending this event
+          = form_tag decline_event_path(@event), method: :delete do
+            = submit_tag 'Cancel', class: 'btn btn-danger'
+        - else
+          = form_tag attend_event_path(@event) do
+            Enter the number of additional guests:
+            = number_field_tag :guest_count, 0, min: 0
+            = submit_tag 'RSVP', class: 'btn btn-primary'
